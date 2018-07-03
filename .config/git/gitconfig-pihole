@@ -1,0 +1,5 @@
+[user]
+    email = dan.schaper@pihole.net
+    name = Dan Schaper
+
+# vim:ft=gitconfig:sw=4:ts=4:et:

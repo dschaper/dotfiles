@@ -1,0 +1,5 @@
+[user]
+    email = dan@glacialmagma.com
+    name = Dan Schaper
+
+# vim:ft=gitconfig:sw=4:ts=4:et:

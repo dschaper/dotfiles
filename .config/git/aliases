@@ -1,0 +1,33 @@
+[alias]
+    # List my aliases
+    aliases = "!git config --get-regexp alias | cut -c 7-"
+    la = "!git aliases"
+
+    # https://haacked.com/archive/2014/07/28/github-flow-aliases/
+    # GitFlow start with a clean base
+    up = !git pull --rebase --prune $@ && git submodule update --init --recursive
+    # GitFlow commit changes so far
+    cm = !git add --all && git commit --message
+
+    # Sign all commits
+    cs = commit --signoff
+    csm = commit --signoff --message
+    # Show status
+    s = status
+    # Checkout branch
+    co = checkout
+    cob = checkout -b
+    # Verbose branch list
+    b = branch -vv
+
+
+    # History helpers
+    # Show compact history
+    l = "!git log -10 --graph --pretty='tformat:%C(yellow)%h{%C(green)%ar{%C(bold blue)%an{%C(red)%d%C(reset) %s' $* | column -t -s '{' | less -FXRS"
+    # Show commit log using graph notation
+    lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+    # List commits showing changed files
+    ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
+    ra = log --graph --abbrev-commit --date=relative -20 --all --pretty='format:%C(yellow)%h%Creset -%C(red)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset'
+    markdown = !BN=$(git name-rev --name-only HEAD) && git log --no-merges --grep=$BN --pretty=oneline | awk -F"$BN: " '{print \"-\", $NF}' | uniq
+# vim:ft=gitconfig:sw=4:ts=4:et:

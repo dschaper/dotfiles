@@ -1,0 +1,16 @@
+[includeIf "gitdir:~/"]
+    path = ~/.config/git/gitconfig-personal
+[includeIf "gitdir:**/Pi-hole/"]
+    path = ~/.config/git/gitconfig-pihole
+[include]
+    path = ~/.config/git/aliases
+    path = ~/.config/git/colors
+
+[gpg]
+    program = gpg2
+[user]
+    signingkey = 6C8E6888ED3D42A0
+[commit]
+    gpgSign = true
+
+# vim:ft=gitconfig:sw=4:ts=4:et:
