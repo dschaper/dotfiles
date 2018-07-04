@@ -13,4 +13,6 @@
 [commit]
     gpgSign = true
 
+[credential "https://github.com"]
+    helper = "netrc -v"
 # vim:ft=gitconfig:sw=4:ts=4:et:
