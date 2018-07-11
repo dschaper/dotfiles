@@ -37,27 +37,59 @@
 # SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
-GITFLOW_VERSION=1.11.1-dev.21
 
 initialize() {
-	# A function can not be empty. Comments count as empty.
-	local FOO=''
+	require_git_repo
+	require_gitflow_initialized
+	gitflow_load_settings
 }
 
 usage() {
 	OPTIONS_SPEC="\
-git flow version
+git flow log
 
-Shows version information.
-
-For more specific help type the command followed by --help
+shows current branch log compared to develop
+'git help log' for arguments
 --
 "
 	flags_help
 }
 
+# Parse arguments and set common variables
+parse_args() {
+	FLAGS "$@" || exit $?
+	eval set -- "${FLAGS_ARGV}"
+}
+
 cmd_default() {
-	echo "$GITFLOW_VERSION (AVH Edition)"
+	cmd_list "$@"
+}
+
+cmd_list() {
+	OPTIONS_SPEC="\
+git flow feature log [<options>]
+
+Show log on <feature> branch since the fork of <develop> branch
+Options come from git log
+--
+h,help!         Show this help
+showcommands!   Show git commands while executing them
+"
+
+	# Parse arguments
+	parse_args "$@"
+
+	# get base branch from current branch
+	local base=$(gitflow_config_get_base_branch $(git_current_branch))
+
+	# no base branch found, comparing against $master
+	if [ -z $base ]; then
+		base=$MASTER_BRANCH
+	fi
+
+	# Get the log
+	echo "Comparing against \"$base\" branch\n"
+	git_do log "$@""$base.."
 }
 
 cmd_help() {

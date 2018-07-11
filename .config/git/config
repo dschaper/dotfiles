@@ -5,6 +5,7 @@
 [include]
     path = ~/.config/git/aliases
     path = ~/.config/git/colors
+    path = ~/.config/git/flow
 
 [gpg]
     program = gpg2
