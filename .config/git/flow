@@ -1,2 +1,2 @@
 [gitflow "path"]
-    hooks = ~/.local/share/gitflow
+    hooks = ~/.local/share/gitflow/hooks
