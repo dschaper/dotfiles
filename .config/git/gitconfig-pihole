@@ -1,5 +1,5 @@
 [user]
-    email = dan.schaper@pihole.net
+    email = dan.schaper@pi-hole.net
     name = Dan Schaper
 
 # vim:ft=gitconfig:sw=4:ts=4:et:
