@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+# Silence pushd/popd
+pushd () { command pushd "$@" > /dev/null; }
+popd () { command popd "$@" > /dev/null; }
+
+# Update submodules
+pushd "${HOME}" || { printf "Can not change to %s directory.\n" "${HOME}"; exit 1; }
+printf "Initializing submodules..."
+yadm submodule update --init --recursive
+printf " done.\n"
+popd || { printf "Can not change back to previous directory.\n"; exit 1; }
+
+# Install zsh command line completions
+printf "Collecting shell command line completions..."
+if curl -fLso "${XDG_CONFIG_HOME}"/zsh/completions/_docker https://raw.githubusercontent.com/docker/cli/master/contrib/completion/zsh/_docker; then
+    printf " docker"
+else
+    printf " docker <failed>"
+fi
+if curl -fLso "${XDG_CONFIG_HOME}"/zsh/completions/_docker-compose https://raw.githubusercontent.com/docker/compose/master/contrib/completion/zsh/_docker-compose; then
+    printf ", docker-compose"
+else
+    printf ", docker <failed>"
+fi
+printf " done.\n"
+
+# Set up vimp
+if command -v vim >/dev/null 2>&1; then
+  echo "Bootstraping Vim"
+  vim '+PlugUpdate' '+PlugClean!' '+PlugUpdate' '+qall'
+fi

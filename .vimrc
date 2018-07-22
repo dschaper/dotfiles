@@ -1,10 +1,15 @@
 " vim-plug
 " ---------------------------------------------------------
+" download vim-plug if missing
+if empty(glob("~/.vim/autoload/plug.vim"))
+  silent! execute '!curl --create-dirs -fsSLo ~/.vim/autoload/plug.vim https://raw.github.com/junegunn/vim-plug/master/plug.vim'
+  autocmd VimEnter * silent! PlugInstall
+endif
 " Directory for vim plugins
 call plug#begin('~/.vim/plugged')
 Plug 'ekalinin/Dockerfile.vim'
 Plug 'morhetz/gruvbox'
-"Plug 'vim-airline/vim-airline'
+Plug 'tpope/vim-fugitive'
 call plug#end()
 
 " vim level configurations
@@ -52,7 +57,7 @@ set laststatus=2
 
 "  colorscheme
 " ------------------------------------------------------
-colorscheme gruvbox             " set colorscheme to gruvbox
+silent! colorscheme gruvbox             " set colorscheme to gruvbox
 set termguicolors               " allow truecolor
 set background=dark
 let g:gruvbox_italicize_comments=1
