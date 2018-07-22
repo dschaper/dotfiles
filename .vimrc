@@ -3,13 +3,15 @@
 " download vim-plug if missing
 if empty(glob("~/.vim/autoload/plug.vim"))
   silent! execute '!curl --create-dirs -fsSLo ~/.vim/autoload/plug.vim https://raw.github.com/junegunn/vim-plug/master/plug.vim'
-  autocmd VimEnter * silent! PlugInstall
+  autocmd VimEnter * silent! PlugInstall --sync | source $MYVIMRC
 endif
 " Directory for vim plugins
 call plug#begin('~/.vim/plugged')
 Plug 'ekalinin/Dockerfile.vim'
 Plug 'morhetz/gruvbox'
 Plug 'tpope/vim-fugitive'
+Plug 'scrooloose/nerdtree'
+Plug 'mhinz/vim-startify'
 call plug#end()
 
 " vim level configurations
@@ -52,7 +54,6 @@ hi GitGutterChange ctermbg=235 ctermfg=245
 hi GitGutterDelete ctermbg=235 ctermfg=245
 hi GitGutterChangeDelete ctermbg=235 ctermfg=245
 hi EndOfBuffer ctermfg=235 ctermbg=235
-
 set laststatus=2
 
 "  colorscheme
@@ -62,7 +63,8 @@ set termguicolors               " allow truecolor
 set background=dark
 let g:gruvbox_italicize_comments=1
 let g:gruvbox_italic=1
-autocmd VimEnter * hi Normal ctermbg=NONE guibg=NONE
+hi Normal ctermbg=NONE
+hi Normal guibg=NONE
 
 " statusline
 " -----------------------------------------------------
@@ -132,3 +134,10 @@ augroup status
   autocmd ColorScheme kalisi if(&background=="light") | hi User3 guibg=#707070 guifg=#005f00 | endif
   autocmd ColorScheme kalisi if(&background=="light") | hi User4 guibg=#707070 guifg=#d0d0d0 | endif
 augroup END
+
+" NERDTree
+" ------------------------------------------------- 
+"  Close if NERDTree is the only window open
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+map <C-n> :NERDTreeToggle<CR>
+
