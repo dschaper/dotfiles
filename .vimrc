@@ -11,6 +11,7 @@ Plug 'ekalinin/Dockerfile.vim'
 Plug 'morhetz/gruvbox'
 Plug 'tpope/vim-fugitive'
 Plug 'scrooloose/nerdtree'
+Plug 'editorconfig/editorconfig-vim'
 Plug 'mhinz/vim-startify'
 call plug#end()
 
